@@ -1,23 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
 
 function App() {
+  const NUMS = Array.from(Array(10).keys());
+
+  const [activeIndexes, setActiveIndexes] = useState([]);
+
+  const addClickedButton = (num) => {
+    console.log(activeIndexes.includes(num))
+    setActiveIndexes(prev => [...prev, num]);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App" style={{ display: "flex", columnGap: "20px" }}>
+      { NUMS.map(num => {
+        if (activeIndexes.includes(num)) return <></>;
+        
+        return (
+          <button
+            style={{ padding: "20px" }}
+            onClick={() => addClickedButton(num)}
+            key={ num }
+          >
+            { num }
+          </button>
+        )
+      })}
     </div>
   );
 }
